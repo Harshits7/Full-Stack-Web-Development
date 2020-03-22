@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GUESS GAME</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<script type="text/javascript">
+	pguess=[];
+	number=0;
+	turn = 10;
+	var x = Math.random()*100;
+	x = Math.floor(x);
+</script>
+<body style="margin-left: 5%;">
+<h1 style="color: red"><strong>NUMBER GUESSING GAME</strong></h1>
+<p><i><b>We have selected random number between 1 to 100. See if you can guess it in 10 turns or fewer.We'll tell you if your guess is to high or to low</b></i></p>
+number of turns left: <p id="turn">10</p>
+Enter a guess: <input type="text" id="number"> <input type="submit" name="submit" class="btn btn-info" value="submit guess" onclick="guesssubmit()">
+<p id="pguess"></p>
+<h2 id="mess1" style="color: blue"><i></i></h2>
+<p id="mess2" style="color: green"><i></i></p>
+<script type="text/javascript">
+		var turn = document.getElementById('turn').textContent;
+		function restart()
+		{
+			location.reload();
+		}
+		function guesssubmit()
+		{
+			number = document.getElementById('number').value;
+			if(turn != 0)
+			{
+				pguess.push(number);	
+				if(number == x)
+					document.getElementById('mess1').innerHTML = "Congratulations! you got it right!";
+				else if(number > x){
+					str = "previous guess: ";
+					if(turn < 10)
+					{ 
+						for(i=0;i<pguess.length-1;i++)
+							str += pguess[i]+",";
+						document.getElementById('pguess').innerHTML = str;
+					}
+					document.getElementById('mess1').innerHTML = "Wrong";
+					document.getElementById('mess2').innerHTML = "Last guess is to high";
+				}
+				else if(number < x){
+					str = "previous guess: ";
+					if(turn < 10)
+					{ 
+						for(i=0;i<pguess.length-1;i++)
+							str += pguess[i]+",";
+						document.getElementById('pguess').innerHTML = str;
+					}
+					document.getElementById('mess1').innerHTML = "Wrong";
+					document.getElementById('mess2').innerHTML = "Last guess is to low";
+				}
+				turn--;
+				document.getElementById('turn').innerHTML=turn;
+
+			}
+			else if(turn<=0)
+			{
+				document.getElementById('mess1').innerHTML = "You Lost the game";
+			}
+		}
+</script>
+<input type="submit" name="" onclick="restart()" class="btn btn-info" value="restart game">
+</body>
+</html>
